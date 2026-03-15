@@ -1,0 +1,7 @@
+treatment,threshold,ATE,interpretation
+dti,> median (17.57),0.0671,Having dti above its median increases default probability by 6.71 percentage points (causal estimate).
+int_rate,> median (12.74),0.1635,Having int_rate above its median increases default probability by 16.35 percentage points (causal estimate).
+fico_score,> median (692.00),-0.0966,Having fico_score above its median decreases default probability by 9.66 percentage points (causal estimate).
+loan_to_income,> median (0.20),0.0955,Having loan_to_income above its median increases default probability by 9.55 percentage points (causal estimate).
+credit_utilization,> median (0.18),0.0119,Having credit_utilization above its median increases default probability by 1.19 percentage points (causal estimate).
+delinq_2yrs,> median (0.00),-0.0052,Having delinq_2yrs above its median decreases default probability by 0.52 percentage points (causal estimate).

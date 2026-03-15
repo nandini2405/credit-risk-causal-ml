@@ -1,0 +1,2 @@
+auc_roc,pr_auc,f1,precision,recall,ks_stat,model_name
+0.7129,0.4049,0.2051,0.543,0.1264,0.3082,LightGBM
