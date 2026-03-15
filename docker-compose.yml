@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: credit_risk_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    environment:
+      - MODEL_DIR=models
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    build: .
+    container_name: credit_risk_dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    command: streamlit run app.py --server.port 8501 --server.address 0.0.0.0
