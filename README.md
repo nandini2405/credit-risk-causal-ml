@@ -9,7 +9,7 @@
 
 | Dimension | Detail |
 |---|---|
-| **Dataset** | LendingClub (2M+ loan records) |
+| **Dataset** | LendingClub (100K sample from 2M+ loan records) |
 | **Models** | XGBoost · LightGBM · CatBoost (best auto-selected via MLflow) |
 | **Tuning** | Optuna TPE — 30 trials per model |
 | **Causal Inference** | DoWhy — backdoor ATE estimation per financial variable |
