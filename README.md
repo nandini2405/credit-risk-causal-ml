@@ -18,7 +18,7 @@ When a bank or lending platform issues a loan, it needs to assess the risk that 
 3. **Feature Selection** — Selected 19 features relevant to credit risk (loan amount, interest rate, income, FICO score, DTI, etc.)
 4. **Data Cleaning** — Handled missing values (mode/median imputation), removed outliers (invalid DTI and income values)
 5. **Exploratory Data Analysis (EDA)** — Visualized loan amount distribution, default rate by grade, feature correlations, default rate by loan purpose, and interest rate/DTI vs default
-6. *06. **Encoding** — Categorical features encoded using `.astype('category').cat.codes`s
+6. **Encoding** — Categorical features encoded using `.astype('category').cat.codes`
 7. **Train-Test Split** — 80/20 split, stratified by target
 8. **Modeling**
    - Logistic Regression (baseline, with feature scaling)
