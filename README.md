@@ -18,7 +18,7 @@ When a bank or lending platform issues a loan, it needs to assess the risk that 
 3. **Feature Selection** — Selected 19 features relevant to credit risk (loan amount, interest rate, income, FICO score, DTI, etc.)
 4. **Data Cleaning** — Handled missing values (mode/median imputation), removed outliers (invalid DTI and income values)
 5. **Exploratory Data Analysis (EDA)** — Visualized loan amount distribution, default rate by grade, feature correlations, default rate by loan purpose, and interest rate/DTI vs default
-6. **Encoding** — Label Encoding for categorical features
+6. *06. **Encoding** — Categorical features encoded using `.astype('category').cat.codes`s
 7. **Train-Test Split** — 80/20 split, stratified by target
 8. **Modeling**
    - Logistic Regression (baseline, with feature scaling)
@@ -32,16 +32,16 @@ When a bank or lending platform issues a loan, it needs to assess the risk that 
 ## Results
 
 | Model | AUC-ROC | Notes |
-|---|---|---|
-| Logistic Regression | 0.726 | High accuracy, low recall on defaulters |
-| XGBoost (scale_pos_weight) | 0.664 | Improved recall, lower AUC |
-| XGBoost + SMOTE + GridSearchCV | **0.722** | Best balance; tuned with `learning_rate=0.05, max_depth=5, n_estimators=200` |
+| --- | --- | --- |
+| Logistic Regression | 0.727 | Baseline; high accuracy, low recall on defaulters |
+| XGBoost (scale_pos_weight) | 0.705 | Better recall (0.56) but lower overall AUC |
+| XGBoost + SMOTE + GridSearchCV | **0.723** | Best AUC; tuned with `learning_rate=0.05, max_depth=5, n_estimators=200` |max_depth=5, n_estimators=200` |
 
 **Top predictive features:** Loan term, interest rate, loan grade, home ownership, DTI
 
 ## Key Insight
 
-Cross-validation AUC during hyperparameter tuning was 0.897, but test AUC was 0.722. This gap occurs because SMOTE-balanced training data makes cross-validation folds easier than the real-world imbalanced test set — a useful lesson in evaluating models fairly.
+Cross-validation AUC was initially 0.897 with test AUC at 0.722 — a large gap caused by applying SMOTE before cross-validation, which leaked synthetic samples between folds. After fixing with `imblearn.pipeline` (applying SMOTE inside each CV fold), CV AUC dropped to 0.715 and now honestly predicts test AUC (0.723).
 
 ## Tech Stack
 
@@ -63,9 +63,3 @@ Python, Pandas, NumPy, Scikit-learn (Logistic Regression, GridSearchCV), XGBoost
 - Class imbalance (~20% defaults) limits recall on the minority class
 - Future work: SHAP for detailed explainability, additional features (credit history depth), training on the full dataset, ensemble/stacking methods
 
-## Key Learning
-
-Initially, SMOTE was applied before GridSearchCV, causing CV AUC (0.897) to be 
-much higher than test AUC (0.722). After fixing with `imblearn.pipeline`, 
-CV AUC (0.715) and test AUC (0.723) are now aligned, giving an honest estimate 
-of model performance on real-world imbalanced data.
