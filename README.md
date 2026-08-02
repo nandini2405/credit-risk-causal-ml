@@ -62,3 +62,10 @@ Python, Pandas, NumPy, Scikit-learn (Logistic Regression, GridSearchCV), XGBoost
 - AUC-ROC of ~0.72 indicates room for improvement; production credit models typically achieve 0.75–0.85+
 - Class imbalance (~20% defaults) limits recall on the minority class
 - Future work: SHAP for detailed explainability, additional features (credit history depth), training on the full dataset, ensemble/stacking methods
+
+## Key Learning
+
+Initially, SMOTE was applied before GridSearchCV, causing CV AUC (0.897) to be 
+much higher than test AUC (0.722). After fixing with `imblearn.pipeline`, 
+CV AUC (0.715) and test AUC (0.723) are now aligned, giving an honest estimate 
+of model performance on real-world imbalanced data.
